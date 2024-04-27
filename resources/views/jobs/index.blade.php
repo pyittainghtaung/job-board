@@ -1,4 +1,5 @@
 <x-layout>
+    <x-breadcrumbs class="mb-4" :links="['Jobs'=>route('jobs.index')]"/>
     @forelse ($jobs as $job)
         {{-- First Style .//This div will be changed to be a card.This is a first code
         <div>
