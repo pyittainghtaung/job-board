@@ -9,11 +9,25 @@ class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      */
+    //     What the $jobs Variable Contains: The variable $jobs now holds the query builder instance, allowing you to build queries and interact with the Job model's corresponding database table. It does not contain the actual data yet; it's merely a blueprint or a set of instructions for building the SQL query.
+
+    // Executing the Query: To get the results from the query builder, you need to call a method like get(), first(), or similar. For example:
+
+    //     $jobs->get() fetches all results matching the built query.
+    //     $jobs->first() fetches the first result matching the built query.
+    //     $jobs->count() returns the count of matching row
     public function index()
     {
-        //
-        return view('jobs.index', ['jobs' => Job::all()]);
+        $jobs = Job::query();
+        // dd($jobs->toSql());
+        // "select * from `jobs`"; so $jobs holds query statement
+        $jobs->when(request('search'), function ($query) {
+            $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('search') . '%');
+        });
+
+        return view('jobs.index', ['jobs' => $jobs->get()]);
     }
 
     /**
