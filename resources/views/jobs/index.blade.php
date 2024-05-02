@@ -17,7 +17,8 @@
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Experience</div>
-                    <label for="experience" class="mb-1 flex items-center">
+                    <x-radio-group name="experience" :options="\App\Models\Job::$experience" />
+                    {{-- <label for="experience" class="mb-1 flex items-center">
                         <input type="radio" name="experience" value=""
                         @checked(!request('experience')) />
                         <span class="ml-2">All</span>
@@ -36,9 +37,12 @@
                         <input type="radio" name="experience" value="senior"
                         @checked('senior'=== request('experience')) />
                         <span class="ml-2">Senior</span>
-                    </label>
+                    </label> --}}
                 </div>
-                <div>4</div>
+                <div>
+                    <div class="mb-1 font-semibold">Category</div>
+                    <x-radio-group name="category" :options="\App\Models\Job::$category" />
+                </div>
             </div>
             <button class="w-full">Filter</button>
         </form>
