@@ -24,8 +24,19 @@ class JobController extends Controller
         // dd($jobs->toSql());
         // "select * from `jobs`"; so $jobs holds query statement
         $jobs->when(request('search'), function ($query) {
-            $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('search') . '%');
+            $query->where(function ($query) {
+                $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('search') . '%');
+            });
+        })->when(request('min_salary'), function ($query) {
+            $query->where('salary', '>=', request('min_salary'));
+        })->when(request('max_salary'), function ($query) {
+            $query->where('salary', '<=', request('max_salary'));
         });
+
+        // This code works the same as above code
+        // $jobs->when(request('search'), function ($query) {
+        //     $query->whereAny(['title','description'], 'like', '%' . request('search') . '%');
+        // });
 
         return view('jobs.index', ['jobs' => $jobs->get()]);
     }
