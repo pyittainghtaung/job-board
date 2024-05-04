@@ -17,7 +17,19 @@
                 </div>
                 <div>
                     <div class="mb-1 font-semibold">Experience</div>
-                    <x-radio-group name="experience" :options="\App\Models\Job::$experience" />
+                    {{-- This is old Style Code --}}
+                    {{-- <x-radio-group name="experience" :options="\App\Models\Job::$experience" /> --}}
+                    {{-- var_dump(array_combine(array_map('ucfirst',['true','false']),['true','false']));
+                    array(2) {
+                    ["True"]=>
+                    string(4) "true"
+                    ["False"]=>
+                    string(5) "false"
+                    } --}}
+                    <x-radio-group name="experience" :options="array_combine(
+                        array_map('ucfirst', \App\Models\Job::$experience),
+                        \App\Models\Job::$experience,
+                    )" />
                     {{-- <label for="experience" class="mb-1 flex items-center">
                         <input type="radio" name="experience" value=""
                         @checked(!request('experience')) />
