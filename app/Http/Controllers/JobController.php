@@ -20,29 +20,33 @@ class JobController extends Controller
     //     $jobs->count() returns the count of matching row
     public function index()
     {
-        $jobs = Job::query();
+        // $jobs = Job::query();
         // dd($jobs->toSql());
         // "select * from `jobs`"; so $jobs holds query statement
-        $jobs->when(request('search'), function ($query) {
-            $query->where(function ($query) {
-                $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('search') . '%');
-            });
-        })->when(request('min_salary'), function ($query) {
-            $query->where('salary', '>=', request('min_salary'));
-        })->when(request('max_salary'), function ($query) {
-            $query->where('salary', '<=', request('max_salary'));
-        })->when(request('experience'), function ($query) {
-            $query->where('experience', request('experience'));
-        })->when(request('category'), function ($query) {
-            $query->where('category', request('category'));
-        });
+        // $jobs->when(request('search'), function ($query) {
+        //     $query->where(function ($query) {
+        //         $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('search') . '%');
+        //     });
+        // })->when(request('min_salary'), function ($query) {
+        //     $query->where('salary', '>=', request('min_salary'));
+        // })->when(request('max_salary'), function ($query) {
+        //     $query->where('salary', '<=', request('max_salary'));
+        // })->when(request('experience'), function ($query) {
+        //     $query->where('experience', request('experience'));
+        // })->when(request('category'), function ($query) {
+        //     $query->where('category', request('category'));
+        // });
 
         // This code works the same as above code
         // $jobs->when(request('search'), function ($query) {
         //     $query->whereAny(['title','description'], 'like', '%' . request('search') . '%');
         // });
 
-        return view('jobs.index', ['jobs' => $jobs->get()]);
+        // return view('jobs.index', ['jobs' => $jobs->get()]);
+
+        $filters = request()->only('search', 'min_salary', 'max_salary', 'experience', 'category');
+        // dd($filters);
+        return view('jobs.index', ['jobs' => Job::filter($filters)->get()]);
     }
 
     /**
