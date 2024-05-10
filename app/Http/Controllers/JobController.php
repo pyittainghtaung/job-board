@@ -45,7 +45,7 @@ class JobController extends Controller
         // return view('jobs.index', ['jobs' => $jobs->get()]);
 
         $filters = request()->only('search', 'min_salary', 'max_salary', 'experience', 'category');
-        // dd($filters);
+        //dd(Job::filter($filters)->toSql());
         return view('jobs.index', ['jobs' => Job::filter($filters)->get()]);
     }
 
