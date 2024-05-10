@@ -83,6 +83,10 @@
         </x-job-card>
 
     @empty
-        <div>There is no Job</div>
+        <x-card>
+            <div class="text-red-600 text-center">
+            Sorry! There is no Job!!!
+            </div>
+        </x-card>
     @endforelse
 </x-layout>
