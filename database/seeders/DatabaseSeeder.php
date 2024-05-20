@@ -13,6 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+        \App\Models\User::factory()->create([
+            'name' => 'Piotr Jura',
+            'email' => 'piotr@jura.com'
+        ]);
+
         \App\Models\User::factory(300)->create();
 
         // Shuffling user list with shuffle method
@@ -36,7 +41,7 @@ class DatabaseSeeder extends Seeder
         $employers = \App\Models\Employer::all();
         for ($i = 0; $i < 100; $i++) {
             \App\Models\Job::factory()->create([
-                'employer_id'=>$employers->random()->id
+                'employer_id' => $employers->random()->id
             ]);
         }
         // \App\Models\Job::factory(100)->create();
