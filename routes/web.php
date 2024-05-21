@@ -19,6 +19,15 @@ Route::get('', fn () => to_route('jobs.index'));
 
 Route::resource('jobs', JobController::class)->only(['index', 'show']);
 
+
+//The part of Login
 Route::get('login', fn () => to_route('auth.create'))->name('login');
 
 Route::resource('auth', AuthController::class)->only(['create', 'store']);
+
+
+//The part of Logout
+Route::delete('logout', fn () => to_route('auth.destroy'))->name('logout');
+
+//[AuthController::class,'destroy'] same with 'AuthController@destroy'
+Route::delete('auth', [AuthController::class, 'destroy'])->name('auth.destroy');
