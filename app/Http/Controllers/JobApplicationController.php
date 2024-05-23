@@ -14,7 +14,7 @@ class JobApplicationController extends Controller
      */
     public function create(Job $job)
     {
-        //
+        $this->authorize('apply', $job);
         return view('job_application.create', ['job' => $job]);
     }
 
@@ -30,7 +30,7 @@ class JobApplicationController extends Controller
             ])
         ]);
 
-        return redirect()->route('jobs.show', $job)->with('success','Job Application Submitted');
+        return redirect()->route('jobs.show', $job)->with('success', 'Job Application Submitted');
     }
 
     /**
