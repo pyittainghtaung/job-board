@@ -11,6 +11,8 @@ class Employer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['company_name'];
+
     // This is one to many relationship
     public function jobs(): HasMany
     {
